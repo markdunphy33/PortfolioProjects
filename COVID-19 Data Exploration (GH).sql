@@ -7,7 +7,7 @@ Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, 
 */
 
 
--- Select Data base data for both data sets
+-- Select base data for both data sets
 
 SELECT location, date, total_cases, new_cases, total_deaths, new_deaths,  population
 FROM PortfolioProject..CovidDeaths
