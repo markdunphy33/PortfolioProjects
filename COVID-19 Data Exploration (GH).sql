@@ -30,6 +30,7 @@ WHERE continent IS NOT NULL
 GROUP BY location
 ORDER BY 4 DESC
 
+
 -- Shows timeline of Infection Fatality Rate if you contract COVID-19 in your country
 
 SELECT location, FORMAT(date,'yyyy-MM-dd') AS Date, total_cases, total_deaths , (total_deaths / total_cases)*100 AS Daily_IFR
@@ -40,12 +41,14 @@ ORDER BY 1,2
 
 -- Total Cases vs Population
 
+
 -- Shows timeline of what percentage of population has had COVID-19
 
 SELECT location, FORMAT(date,'yyyy-MM-dd') AS Date, total_cases, population , (total_cases / population)*100 AS Cases_By_Pop
 FROM PortfolioProject..CovidDeaths
 WHERE location = 'United States'
 ORDER BY 1,2
+
 
 -- Looking at Countries with highest infection rates compared to Population
 
@@ -56,6 +59,7 @@ ORDER BY Pop_Infection_Percent DESC
 
 
 -- Total Deaths vs Population
+
 
 -- Showing Continents with highest death count
 
@@ -68,6 +72,7 @@ AND location <> 'European Union'
 GROUP BY  location
 ORDER BY Total_Death_Count DESC
 
+
 -- Shows % of Population that has died due to COVID-19
 
 SELECT location, population AS Total_Population, MAX(cast(total_deaths as INT)) as Total_Death_Count, MAX(cast(total_deaths as INT)/ population)*100 AS Percent_Pop_Lost
@@ -78,6 +83,7 @@ ORDER BY Percent_Pop_Lost DESC
 
 
 -- Total Cases vs Vaccinations
+
 
 -- Shows timeline of new case rate based on vaccinations
 
@@ -93,6 +99,7 @@ ORDER BY 1,2
 
 
 -- Total Vaccinations vs Population
+
 
 -- Shows increase in percentage of fully vaccinated population
 
@@ -110,6 +117,7 @@ ORDER BY 1,2
 
 -- Shows rolling case and death data using PARTITION BY
 -- Calculating % of population that contracted COVID-19 and % of population that has passed away due to COVID
+
 
 -- Using CTE to perform above calculation on PARTITION BY data
 
@@ -130,6 +138,7 @@ SELECT *,(Rolling_Cases/population)*100 AS Percent_Pop_Contracted, (Rolling_Deat
 FROM VACvsCASESvsDEATHS
 WHERE location = 'United States'
 ORDER BY 1,2
+
 
 -- Using Temp Table to perform above calculation on PARTITION BY data
 
@@ -180,6 +189,7 @@ WHERE dea.continent IS NOT NULL
 SELECT *,(Rolling_Cases/population)*100 AS Percent_Pop_Contracted, (Rolling_Deaths/population)*100 AS Percent_Pop_Lost,
 (Fully_Vaccinated/population)*100 AS Percent_Fully_Vaccinated
 FROM VACvsCASESvsDEATHS
+
 
 -- Accessing and dropping created view
 
