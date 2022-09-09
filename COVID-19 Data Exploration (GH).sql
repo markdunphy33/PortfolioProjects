@@ -108,14 +108,17 @@ ORDER BY Percent_Pop_Lost DESC
 -- Shows timeline of new case rate based on vaccinations
 
 SELECT
-	location, date, people_fully_vaccinated, new_cases, ROUND((new_cases/population)*100,5) as case_rate, ROUND((people_fully_vaccinated / population)*100,5) as vaccination_rate
+	location, 
+	date, 
+	people_fully_vaccinated, 
+	new_cases, 
+	ROUND((new_cases/population)*100,5) as case_rate, ROUND((people_fully_vaccinated / population)*100,5) as vaccination_rate
 FROM 
 	PortfolioProject..CovidDataAll
 WHERE 
 	continent IS NOT NULL AND
 	location = 'United States'
 ORDER BY date ASC
-
 
 
 
@@ -137,7 +140,6 @@ WITH cte_data AS
 		PortfolioProject..CovidDataAll
 	WHERE 
 		continent IS NOT NULL)
-
 
 SELECT
 	location,
