@@ -22,13 +22,18 @@ WHERE table_name = 'CovidDataAll'
 -- Shows likelihood of dying if you contract COVID-19 by country (Case Fatality Rate a.k.a. CFR)
 
 SELECT 
-	location, SUM(new_cases) as Total_Cases, SUM(CAST(new_deaths as INT)) as Total_Deaths, ROUND((SUM(CAST(new_deaths as INT))/SUM(new_cases))*100,2) as CFR
+	location, 
+	SUM(new_cases) as Total_Cases, 
+	SUM(CAST(new_deaths as INT)) as Total_Deaths, 
+	ROUND((SUM(CAST(new_deaths as INT))/SUM(new_cases))*100,2) as CFR
 FROM 
 	PortfolioProject..CovidDataAll
 WHERE 
 	continent IS NOT NULL
-GROUP BY location
-ORDER BY IFR DESC
+GROUP BY 
+	location
+ORDER BY 
+	CFR DESC
 
 
 -- Shows daily timeline of Case Fatality Rate by country
@@ -42,7 +47,8 @@ WHERE
 	continent IS NOT NULL AND
 	total_cases IS NOT NULL AND
 	location = 'United States'
-ORDER BY date ASC
+ORDER BY 
+	date ASC
 
 
 
@@ -54,8 +60,10 @@ SELECT
 	location, date, total_cases, population , ROUND((total_cases / population)*100,5) AS Cases_By_Pop
 FROM 
 	PortfolioProject..CovidDataAll
-WHERE location = 'United States'
-ORDER BY 1,2
+WHERE 
+	location = 'United States'
+ORDER BY 
+	1,2 ASC
 
 
 -- Looking at Countries with highest infection rates compared to Population
@@ -64,9 +72,12 @@ SELECT
 	location, MAX(total_cases) as Highest_Infection_Count, population , ROUND(MAX((total_cases / population))*100,2) AS Pop_Infection_Rate
 FROM
 	PortfolioProject..CovidDataAll
-WHERE continent IS NOT NULL
-GROUP BY location, population
-ORDER BY Pop_Infection_Rate DESC
+WHERE 
+	continent IS NOT NULL
+GROUP BY 
+	location, population
+ORDER BY 
+	Pop_Infection_Rate DESC
 
 
 
@@ -84,8 +95,10 @@ WHERE
 	AND location <> 'World' 
 	AND location <> 'European Union'
 	AND location <> 'International'
-GROUP BY location
-ORDER BY total_death_count DESC
+GROUP BY 
+	location
+ORDER BY 
+	total_death_count DESC
 
 
 -- Shows % of Population that has died due to COVID-19
@@ -97,9 +110,12 @@ SELECT
 	ROUND(MAX(CAST(total_deaths as INT)/ population)*100,2) AS Percent_Pop_Lost
 FROM 
 	PortfolioProject..CovidDataAll
-WHERE continent IS NOT NULL 
-GROUP BY location, population
-ORDER BY Percent_Pop_Lost DESC
+WHERE 
+	continent IS NOT NULL 
+GROUP BY 
+	location, population
+ORDER BY 
+	Percent_Pop_Lost DESC
 
 
 
@@ -118,7 +134,8 @@ FROM
 WHERE 
 	continent IS NOT NULL AND
 	location = 'United States'
-ORDER BY date ASC
+ORDER BY 
+	date ASC
 
 
 
@@ -185,8 +202,10 @@ SELECT
 	(rolling_cases / population)*100 AS Percent_Pop_Contracted,
 	(rolling_deaths/population)*100 AS Percent_Pop_Lost,
 	(people_fully_vaccinated/population)*100 AS Percent_Fully_Vaccinated
-FROM VacCaseDeath
-ORDER BY 1,2
+FROM 
+	VacCaseDeath
+ORDER BY 
+	1,2 ASC
 
 
 -- Creating view to store later for Tableau visualization
